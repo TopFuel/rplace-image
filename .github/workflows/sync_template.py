@@ -11,11 +11,10 @@ mask_i = Image.open(BytesIO(response.content))
 mask = Image.new("1", (3000, 3000), 0)
 mask.paste(mask_i)
 
-tl = (773 * 3, 735  * 3) # top left corner
+tl = (633 * 3, 1045  * 3) # top left corner
 
 final_img = Image.new('RGBA', (3000, 3000))
 unmasked_img = Image.new('RGBA', (3000, 3000))
 unmasked_img.paste(img, tl)
 final_img = Image.composite(final_img, unmasked_img, mask)
 final_img.save("superstonk_overlay.png")
-
