@@ -1,54 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Superstonk's rPlace</title>
+    <title>HAchubby's rPlace</title>
     <style>
         .container {
             position: relative;
         }
-
-        .container > canvas {
+        
+        .container>canvas {
             position: absolute;
             top: 0;
             left: 0;
         }
-
-        
     </style>
 </head>
+
 <body>
 
     <div>
         <p>
             OVERLAY INSTRUCTIONS
-            <br />
-            If you use Chrome:
+            <br /> If you use Chrome:
             <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en">https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en</a>
-            <br />
-            If you use Opera:
+            <br /> If you use Opera:
             <a href="https://www.tampermonkey.net/">https://www.tampermonkey.net/</a>
-            <br />
-            If you use Firefox:
+            <br /> If you use Firefox:
             <a href="https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/">https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/</a>
-            <br />
-            To install, click here:<a href="https://rplacesuperstonk.github.io/rplace-image/userscript.user.js">https://rplacesuperstonk.github.io/rplace-image/userscript.user.js</a>
+            <br /> To install, click here:<a href="https://topfuel.github.io/rplace-image/userscript.user.js">https://topfuel.github.io/rplace-image/userscript.user.js</a>
         </p>
     </div>
 
-    <div id = "container" class = "container">
-        <canvas id = "canvas_background" width = "800" height = "500"></canvas>
-        <canvas id = "canvas_foreground" width = "800" height = "500"></canvas>
+    <div id="container" class="container">
+        <canvas id="canvas_background" width="800" height="500"></canvas>
+        <canvas id="canvas_foreground" width="800" height="500"></canvas>
     </div>
 
     <script>
-        const X_PIXELS=23
-        const Y_PIXELS=23
-        const X_OFFSET=400
-        const Y_OFFSET=100
+        const X_PIXELS = 23
+        const Y_PIXELS = 23
+        const X_OFFSET = 400
+        const Y_OFFSET = 100
 
-        const X_IN_PLACE=773
-        const Y_IN_PLACE=735
+        const X_IN_PLACE = 624
+        const Y_IN_PLACE = 1038
 
         function getMousePos(canvas, evt) {
             const rect = canvas.getBoundingClientRect();
@@ -74,26 +70,26 @@
         const background = document.getElementById("canvas_background");
         const bg = background.getContext("2d");
 
-        const  foreground = document.getElementById("canvas_foreground");
+        const foreground = document.getElementById("canvas_foreground");
         const fg = foreground.getContext("2d");
 
         const img = new Image();
-        img.onload = function(){
+        img.onload = function() {
             w = img.width * X_PIXELS
             h = img.height * Y_PIXELS
 
-            bg.canvas.width  = w + X_OFFSET;
-            bg.canvas.height = h + 2*Y_OFFSET;
+            bg.canvas.width = w + X_OFFSET;
+            bg.canvas.height = h + 2 * Y_OFFSET;
 
-            fg.canvas.width  = bg.canvas.width;
+            fg.canvas.width = bg.canvas.width;
             fg.canvas.height = bg.canvas.height;
             bg.imageSmoothingEnabled = false;
             bg.drawImage(img, 0, 0, img.width, img.height, 0, Y_OFFSET, w, h)
             drawGrid(0, Y_OFFSET, w, h + Y_OFFSET, bg)
         };
-        img.src = "https://raw.githubusercontent.com/rplacesuperstonk/rplace-image/main/reference.png";
+        img.src = "https://raw.githubusercontent.com/topfuel/rplace-image/main/reference.png";
 
-        function drawText(text, x, y){
+        function drawText(text, x, y) {
             fg.font = '80px Sans-serif';
             fg.strokeStyle = 'black';
             fg.lineWidth = 8;
@@ -102,31 +98,30 @@
             fg.fillText(text, x, y);
         }
 
-        foreground.addEventListener('mousemove', event =>
-        {
+        foreground.addEventListener('mousemove', event => {
             let p = getMousePos(foreground, event);
-            let x = Math.floor((p.x)/X_PIXELS);
-            let y = Math.floor((p.y-Y_OFFSET)/Y_PIXELS) ;
+            let x = Math.floor((p.x) / X_PIXELS);
+            let y = Math.floor((p.y - Y_OFFSET) / Y_PIXELS);
 
             fg.clearRect(0, 0, fg.canvas.width, fg.canvas.height);
 
-            if (y<0){
+            if (y < 0) {
                 return;
             }
-            drawText((x+ X_IN_PLACE)+"", p.x+40, p.y - 30)
-            drawText((y+ Y_IN_PLACE)+"", p.x+40, p.y + 50)
+            drawText((x + X_IN_PLACE) + "", p.x + 40, p.y - 30)
+            drawText((y + Y_IN_PLACE) + "", p.x + 40, p.y + 50)
 
             fg.lineWidth = 4;
-            let circle_x = x*X_PIXELS+X_PIXELS/2;
-            let circle_y = y*Y_PIXELS+Y_OFFSET+Y_PIXELS/2;
+            let circle_x = x * X_PIXELS + X_PIXELS / 2;
+            let circle_y = y * Y_PIXELS + Y_OFFSET + Y_PIXELS / 2;
             fg.beginPath()
             fg.strokeStyle = 'red';
-            fg.arc(circle_x, circle_y, X_PIXELS-6, 0, 2 * Math.PI, false);
+            fg.arc(circle_x, circle_y, X_PIXELS - 6, 0, 2 * Math.PI, false);
             fg.stroke()
 
             fg.beginPath()
             fg.strokeStyle = 'white';
-            fg.arc(circle_x, circle_y, X_PIXELS-4, 0, 2 * Math.PI, false);
+            fg.arc(circle_x, circle_y, X_PIXELS - 4, 0, 2 * Math.PI, false);
             fg.stroke()
 
             fg.beginPath()
@@ -136,25 +131,25 @@
 
         });
 
-        foreground.addEventListener('click', event =>
-        {
+        foreground.addEventListener('click', event => {
             let p = getMousePos(foreground, event);
-            let x = Math.floor((p.x)/X_PIXELS) + X_IN_PLACE;
-            let y = Math.floor((p.y-Y_OFFSET)/Y_PIXELS) + Y_IN_PLACE;
+            let x = Math.floor((p.x) / X_PIXELS) + X_IN_PLACE;
+            let y = Math.floor((p.y - Y_OFFSET) / Y_PIXELS) + Y_IN_PLACE;
 
-            if (y<Y_IN_PLACE){
+            if (y < Y_IN_PLACE) {
                 return;
             }
 
-            let url ="https://new.reddit.com/r/place/?cx="+x+"&cy="+y+"&px=23"
+            let url = "https://new.reddit.com/r/place/?cx=" + x + "&cy=" + y + "&px=23"
             window.open(url, '_blank').focus();
         });
 
         setTimeout(() => {
             // Reload every 5 minutes to fetch updates from the gh
-            location.reload(); 
+            location.reload();
         }, 60000 * 5)
     </script>
 
 </body>
+
 </html>
