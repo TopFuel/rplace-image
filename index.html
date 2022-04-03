@@ -88,7 +88,8 @@
             bg.drawImage(img, 0, 0, img.width, img.height, 0, Y_OFFSET, w, h)
             drawGrid(0, Y_OFFSET, w, h + Y_OFFSET, bg)
         };
-        img.src = "https://raw.githubusercontent.com/topfuel/rplace-image/main/reference.png";
+        const time = Math.floor(Date.now() / 10000);
+        img.src = "https://raw.githubusercontent.com/topfuel/rplace-image/main/reference.png?tstamp=" + time;
 
         function drawText(text, x, y) {
             fg.font = '80px Sans-serif';
