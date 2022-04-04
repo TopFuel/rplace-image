@@ -34,7 +34,7 @@ if (window.top !== window.self) {
                     if (preview && preview[0].shadowRoot && preview[0].shadowRoot.children[0]) {
                         if (!added) {
                             added = true;
-                            layout.getElementsByTagName("mona-lisa-pixel-preview")[0].shadowRoot.children[0].style.clipPath = "polygon( evenodd, 35% 35%, 65% 35%, 65% 65%, 35% 65%, 35% 35%, calc(50% - 100px / 2) calc(50% - 100px / 2), calc(50% + 100px / 2) calc(50% - 100px / 2), calc(50% + 100px / 2) calc(50% + 100px / 2), calc(50% - 100px / 2) calc(50% + 100px / 2), calc(50% - 100px / 2) calc(50% - 100px / 2)";
+                            layout.getElementsByTagName("mona-lisa-pixel-preview")[0].shadowRoot.children[0].style.clipPath = "polygon( evenodd, 37.5% 37.5%, 62.5% 37.5%, 62.5% 62.5%, 37.5% 62.5%, 37.5% 37.5%, calc(50% - 100px / 2) calc(50% - 100px / 2), calc(50% + 100px / 2) calc(50% - 100px / 2), calc(50% + 100px / 2) calc(50% + 100px / 2), calc(50% - 100px / 2) calc(50% + 100px / 2), calc(50% - 100px / 2) calc(50% - 100px / 2)";
                         }
                     } else {
                         added = false;
