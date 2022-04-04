@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         HAchubby template
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Overlay for the HAchubby's template
 // @author       oralekin, Top_Fuel
 // @match        https://hot-potato.reddit.com/embed*
@@ -10,7 +10,8 @@
 // ==/UserScript==
 if (window.top !== window.self) {
     window.addEventListener('load', () => {
-        document.getElementsByTagName("mona-lisa-embed")[0].shadowRoot.children[0].getElementsByTagName("mona-lisa-canvas")[0].shadowRoot.children[0].appendChild(
+        var layout = document.getElementsByTagName("mona-lisa-embed")[0].shadowRoot.children[0];
+        layout.getElementsByTagName("mona-lisa-canvas")[0].shadowRoot.children[0].appendChild(
             (function() {
                 const i = document.createElement("img");
                 const time = Math.floor(Date.now() / 10000);
@@ -22,8 +23,28 @@ if (window.top !== window.self) {
                 }
                 console.log(i);
                 return i;
-            })())
+            })());
 
+        try {
+            var added = false;
+            var preview = null;
+            setInterval(() => {
+                try {
+                    preview = layout.getElementsByTagName("mona-lisa-pixel-preview");
+                    if (preview && preview[0].shadowRoot && preview[0].shadowRoot.children[0]) {
+                        if (!added) {
+                            added = true;
+                            layout.getElementsByTagName("mona-lisa-pixel-preview")[0].shadowRoot.children[0].style.clipPath = "polygon( evenodd, 35% 35%, 65% 35%, 65% 65%, 35% 65%, 35% 35%, calc(50% - 100px / 2) calc(50% - 100px / 2), calc(50% + 100px / 2) calc(50% - 100px / 2), calc(50% + 100px / 2) calc(50% + 100px / 2), calc(50% - 100px / 2) calc(50% + 100px / 2), calc(50% - 100px / 2) calc(50% - 100px / 2)";
+                        }
+                    } else {
+                        added = false;
+                    }
+                } catch (e) {
+                    added = false;
+                }
+            }, 1000);
+        } catch (e) {
+            console.log(e);
+        }
     }, false);
-
 }
