@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name         HAchubby template
 // @namespace    http://tampermonkey.net/
-// @version      0.2
-// @description  Overlay for the HAchubby's template
+// @version      0.3
+// @description  Overlay for the HAchubby's r/place template
 // @author       oralekin, Top_Fuel
+// @website      https://topfuel.github.io/rplace-image/
+// @source       https://github.com/TopFuel/rplace-image/
 // @match        https://hot-potato.reddit.com/embed*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=reddit.com
 // @grant        none
